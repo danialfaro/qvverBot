@@ -23,11 +23,11 @@ const db = admin.firestore();
 // Initialize Discord Client
 const client = new Discord.Client();
 
-const prefix = "!";
-const botToken = config.BOT_TOKEN;
+let prefix = "!";
+let botToken = config.BOT_TOKEN;
 
 // Haroku variables
-if(process !== undefined) {
+if(process.env.TOKEN || process.env.PREFIX) {
     prefix = process.env.PREFIX;
     botToken = process.env.TOKEN;
 }
