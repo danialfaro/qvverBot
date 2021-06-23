@@ -1,0 +1,22 @@
+{
+  "name": "qvverbot",
+  "version": "1.0.0",
+  "description": "qvver's Discord Bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danialfaro/qvverBot.git"
+  },
+  "author": "danialfaro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danialfaro/qvverBot/issues"
+  },
+  "homepage": "https://github.com/danialfaro/qvverBot#readme",
+  "dependencies": {
+    "discord.js": "^12.5.3"
+  }
+}
