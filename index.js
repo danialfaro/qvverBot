@@ -25,7 +25,7 @@ const client = new Discord.Client();
 const prefix = process.env.PREFIX;
 
 client.on('ready', () => {
-    client.user.setActivity('bot en heroku', {type: 'WATCHING'});
+    client.user.setActivity('Bot League', {type: 'COMPETING'});
     console.log('Listo!');
 });
 
