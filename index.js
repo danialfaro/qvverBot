@@ -58,7 +58,7 @@ client.on("message", (message) => {
         message.channel.send(args[0])
     }
 
-    else if (command === "todos" && args.length === 0) {
+    else if (command === "todos" && args.length === 0) {    
         message.reply('cargando tareas...').then(m => {
             getTodoData(message.author).then(data => {
                 
@@ -79,7 +79,7 @@ client.on("message", (message) => {
     else if (command === "todos" && args.length > 0) {
 
         if (args[0] === 'new') {
-            let task = args[1];
+            let task = args.slice(1, args.length).join(" ");
             db.collection('todos').add({
                 author: message.author.id,
                 task: task,
