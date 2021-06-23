@@ -26,6 +26,11 @@ const prefix = "!";
 
 const qvverDiscordID = "131577805681983488";
 
+client.on('ready', () => {
+    client.user.setActivity('bot en heroku', {type: 'WATCHING'});
+    console.log('Listo!');
+});
+
 client.on("message", (message) => {
 
     // If the message is another Bot, do nothing
