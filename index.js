@@ -64,8 +64,8 @@ client.on("message", (message) => {
                 
                 m.delete();
                 
-                if(true) {
-                    message.reply('No tienes ninguna tarea pendiente.');
+                if(Object.keys(data).length === 0) {
+                    message.reply('no hay tareas.');
                     return;
                 }
 
@@ -116,10 +116,6 @@ function getTodoData(author) {
 
         const todosRef = db.collection('todos');
         todosRef.where('author', '==', author.id).orderBy('priority', 'desc').limit(25).get().then(docs => {
-
-            if (docs.empty) {
-                return;
-            }
 
             let todos = {};
 
