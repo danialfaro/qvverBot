@@ -22,10 +22,18 @@ const db = admin.firestore();
 
 // Initialize Discord Client
 const client = new Discord.Client();
-const prefix = process.env.PREFIX;
+
+const prefix = "!";
+const botToken = config.BOT_TOKEN;
+
+// Haroku variables
+if(process !== undefined) {
+    prefix = process.env.PREFIX;
+    botToken = process.env.TOKEN;
+}
 
 client.on('ready', () => {
-    client.user.setActivity('Bot League', { type: 'COMPETING' });
+    client.user.setActivity('BOT League', { type: 'COMPETING' });
     console.log('Listo!');
 });
 
@@ -51,10 +59,18 @@ client.on("message", (message) => {
     }
 
     else if (command === "todos" && args.length === 0) {
-        message.reply('aqui tienes tus tareas:').then(m => {
+        message.reply('cargando tareas...').then(m => {
             getTodoData(message.author).then(data => {
+                
+                m.delete();
+                
+                if(true) {
+                    message.reply('No tienes ninguna tarea pendiente.');
+                    return;
+                }
+
                 let embedMessage = generateEmbedTodos(message.author, data);
-                //m.delete();
+                
                 message.channel.send(embedMessage);
             })
         });
@@ -75,11 +91,15 @@ client.on("message", (message) => {
         }
         else if (args[0] === 'clear') {
             const todosRef = db.collection('todos');
-            todosRef.where('author', '==', author.id).get().then(docs => {
+            todosRef.where('author', '==', message.author.id).get().then(docs => {
 
-                docs.forEach(doc => {
-                    doc.delete();
+                const batch = db.batch();
+                docs.forEach((doc) => {
+                    batch.delete(doc.ref);
                 });
+                batch.commit();
+
+                message.reply(`tus tareas se han limpiado correctamente.`);
 
             })
         }
@@ -88,8 +108,7 @@ client.on("message", (message) => {
 
 })
 
-client.login(process.env.TOKEN);
-//client.login(config.BOT_TOKEN);
+client.login(botToken);
 
 function getTodoData(author) {
 
