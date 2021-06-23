@@ -1,3 +1,12 @@
 {
-    "BOT_TOKEN": "ODU3MDY0MzcyOTg3MTAxMjA1.YNKJZg.y6mBTlcLeS5UmlyRuDGxaXic-yM"
+    "BOT_TOKEN": "ODU3MDY0MzcyOTg3MTAxMjA1.YNKJZg.y6mBTlcLeS5UmlyRuDGxaXic-yM",
+    "FIREBASE_CONFIG" : {
+        "apiKey": "AIzaSyBfCbVPqhLq9hQcap0rUi7-IARY_VuqPNk",
+        "authDomain": "todolist-7a68a.firebaseapp.com",
+        "databaseURL": "https://todolist-7a68a.firebaseio.com",
+        "projectId": "todolist-7a68a",
+        "storageBucket": "todolist-7a68a.appspot.com",
+        "messagingSenderId": "603164110409",
+        "appId": "1:603164110409:web:d76861243aba9ad2a51998"
+      }
 }

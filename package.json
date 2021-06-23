@@ -17,6 +17,11 @@
   },
   "homepage": "https://github.com/danialfaro/qvverBot#readme",
   "dependencies": {
-    "discord.js": "^12.5.3"
+    "discord.js": "^12.5.3",
+    "firebase": "^8.6.8",
+    "firebase-admin": "^9.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
