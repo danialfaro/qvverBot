@@ -22,9 +22,7 @@ const db = admin.firestore();
 
 // Initialize Discord Client
 const client = new Discord.Client();
-const prefix = "!";
-
-const qvverDiscordID = "131577805681983488";
+const prefix = process.env.PREFIX;
 
 client.on('ready', () => {
     client.user.setActivity('bot en heroku', {type: 'WATCHING'});
@@ -48,17 +46,11 @@ client.on("message", (message) => {
         message.reply(`Pong! This message had a latency of ${timeTaken}ms.`);
     }
 
-    else if (command === "me") {
-        if (message.author.id === qvverDiscordID) {
-            message.reply(`Nice ego bro. ${message.author.avatarURL()}`);
-        }
-    }
-
     else if (command === "send") {
         message.channel.send(args[0])
     }
 
-    else if (command === "todos") {
+    else if (command === "todos" && args.length === 0) {
         message.reply('aqui tienes tus tareas:').then(m => {
             getTodoData(message.author).then(data => {
                 let embedMessage = generateEmbedTodos(message.author, data);
@@ -68,9 +60,24 @@ client.on("message", (message) => {
         });
     }
 
+    else if (command === "todos" && args.length > 0) {
+
+        if(args[0] === 'new') {
+            let task = args[1];
+            db.collection('todos').add({
+                author: message.author.id,
+                task: task,
+                priority: 1,
+                createdAt: Date.now()
+            })
+        }
+
+    }
+
 })
 
-client.login(config.BOT_TOKEN);
+client.login(process.env.TOKEN);
+//client.login(config.BOT_TOKEN);
 
 function getTodoData(author) {
 
