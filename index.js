@@ -25,7 +25,7 @@ const client = new Discord.Client();
 const prefix = process.env.PREFIX;
 
 client.on('ready', () => {
-    client.user.setActivity('Bot League', {type: 'COMPETING'});
+    client.user.setActivity('Bot League', { type: 'COMPETING' });
     console.log('Listo!');
 });
 
@@ -56,21 +56,31 @@ client.on("message", (message) => {
                 let embedMessage = generateEmbedTodos(message.author, data);
                 //m.delete();
                 message.channel.send(embedMessage);
-            })            
+            })
         });
     }
 
     else if (command === "todos" && args.length > 0) {
 
-        if(args[0] === 'new') {
+        if (args[0] === 'new') {
             let task = args[1];
             db.collection('todos').add({
                 author: message.author.id,
                 task: task,
                 priority: 1,
                 createdAt: Date.now()
-            }).then( () => {
+            }).then(() => {
                 message.reply(`${task} se ha añadido correctamente.`);
+            })
+        }
+        else if (args[0] === 'clear') {
+            const todosRef = db.collection('todos');
+            todosRef.where('author', '==', author.id).get().then(docs => {
+
+                docs.forEach(doc => {
+                    doc.delete();
+                });
+
             })
         }
 
@@ -89,7 +99,6 @@ function getTodoData(author) {
         todosRef.where('author', '==', author.id).orderBy('priority', 'desc').limit(25).get().then(docs => {
 
             if (docs.empty) {
-                console.log('No matching documents.');
                 return;
             }
 
@@ -125,7 +134,7 @@ function generateEmbedTodos(author, todos) {
             )
         }
     }
-    
+
     //embedTodos.addField('\u200B','\u200B') //space
 
     embedTodos.setTimestamp()
