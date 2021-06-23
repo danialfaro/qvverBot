@@ -69,6 +69,8 @@ client.on("message", (message) => {
                 task: task,
                 priority: 1,
                 createdAt: Date.now()
+            }).then( () => {
+                message.reply(`${task} se ha añadido correctamente.`);
             })
         }
 
